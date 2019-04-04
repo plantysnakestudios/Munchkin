@@ -19,7 +19,7 @@ def rename(count, path = os.getcwd()):
                 print (tmp2, end = "\n")
             try:
                 tmp = os.path.join(path, tmp)
-                tmp2 = os.path.join(r"..", tmp2)
+                tmp2 = os.path.join(r"./", tmp2)
                 tmp2 = os.path.join(path, tmp2)
                 count += 1
                 os.rename(tmp, tmp2)
