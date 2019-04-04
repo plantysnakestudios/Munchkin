@@ -102,5 +102,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-Pics/ALL_ENG
-Pics/cards
+Pics/ALL_ENG/*.png
