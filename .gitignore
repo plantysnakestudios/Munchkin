@@ -103,3 +103,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 Pics/ALL_ENG/*.png
+Pics/ALL_ENG/M_Rick_&_Morty/*.png
