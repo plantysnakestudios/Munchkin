@@ -12,13 +12,19 @@ def main():
         strr = data[n : bit]
         if (not strr in dat):
             dat.append(strr)
-    #print(len(dat))
-    name = ""
-    for i in range(len(dat)):
-        out = open(r"tmp/" + "0" * (3 - len(str(i))) + str(i) + ".jpg", "wb")
-        file = r.get(dat[i], stream = True)
-        out.write(file.content)
-        out.close()
+    print(dat[266])
+    print(dat[268])
+
+    tmp = dat[254]
+    dat = []
+    dat.append(tmp)
+
+##    name = ""
+##    for i in range(len(dat)):
+##        out = open(r"ALL_ENG/" + "0" * (3 - len(str(i))) + str(i) + ".jpg", "wb")
+##        file = r.get(dat[i], stream = True)
+##        out.write(file.content)
+##        out.close()
 
 if __name__ == "__main__":
     main()

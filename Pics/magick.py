@@ -1,15 +1,11 @@
-def doMagick(name, count):
+def doMagick(name, count, path):
     import os
 
-    name2 = name[:-4]
-    if (not os.path.exists(name2)):
-        os.mkdir(name2)
-
-    command = "convert -density 2000 -colorspace sRGB " + name + "[" + str(i) + "] -scale 4600x2520 "+ name2 + r"/munchkin" + "0" * (3 - len(str(count))) + str(count) + ".png"
+    command = "convert -density 2000 -colorspace sRGB " + os.path.join(path, name) + r" -scale 4600x2520 " + os.path.join(path, "cards/") + "0" * (3 - len(str(count))) + str(count) + ".png"
     os.system(command)
 
 def main():
-    doMagick ("M1_fantasy.pdf")
+    doMagick ("ALL_ENG/tmp.jpg", 0)
 
 if __name__ == "__main__":
     main()#pass

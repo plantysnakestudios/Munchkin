@@ -1,15 +1,15 @@
 import magick, crop
-import os, re
-from PyPDF2 import PdfFileReader
+import os
 
-for i in os.listdir(os.getcwd()):
+count = 0
+
+path = os.path.join(os.getcwd(), r"ALL_ENG/")
+
+for i in os.listdir(path):
 
     ext = i[i.rfind(".") + 1:]
-    if (ext == "pdf"):
-        pdf = open(i, "rb")
-        count = PdfFileReader(pdf).getNumPages()
-        pdf.close()
+    if (ext == "jpg"):
         print (i, count)
-        magick.doMagick(i, count)
-        crop.doCrop(i[:-4], count)
-        os.remove(i)
+        magick.doMagick(i, count, path)
+        #crop.doCrop(i, path)
+        count += 1

@@ -31,10 +31,10 @@ def rename(count, path = os.getcwd()):
     return count
 
 def main():
-    directory = os.listdir(r"./")
+    directory = os.listdir(r"ALL_ENG/")
     path = os.getcwd()
     for direct in directory:
-        #direct = os.path.join(r"./M1_Fantasy/Doors", direct)
+        direct = os.path.join(r"ALL_ENG", direct)
         direct = os.path.join(path, direct)
         if os.path.isdir (direct):
             t = rename(0, path = direct)
