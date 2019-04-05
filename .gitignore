@@ -102,9 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-Pics/ALL_ENG/*.png
-Pics/ALL_ENG/M_Rick_&_Morty/*.png
+Pics/ALL_ENG/
 no_compress.py
-298_new.png.bak
-298_new.png
-298.png
+

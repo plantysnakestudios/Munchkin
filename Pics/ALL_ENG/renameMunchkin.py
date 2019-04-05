@@ -7,13 +7,13 @@ def rename(count, path = os.getcwd()):
         tmp = listt[j]
         dirr = os.path.join(path, tmp)
         if os.path.isdir (dirr):
-            if ((tmp == "Doors") or (tmp == "Treasure")):
+            if ((tmp == "Doors") or (tmp == "Treasure") or (tmp == "Dungeon") or (tmp == "Seal")):
                 count = 0
             tmpp = os.path.join(path, tmp)
             count = rename(count, path = tmpp)
 
         else:
-            if (not "cardBack" in tmp):
+            if (not "cardBack" in tmp) and (not "box" in tmp):
                 print (tmp, "->", end = " ")
                 tmp2 = tmp [:-7] + "0" * (3 - len(str(count))) + str(count) + ".png"
                 print (tmp2, end = "\n")
