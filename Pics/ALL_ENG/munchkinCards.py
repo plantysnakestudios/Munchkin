@@ -1,14 +1,14 @@
 import magick, crop
 import os
 
-types = ["Doors", "Treasure"]#, "Dungeon"]
+types = [""]#"Doors", "Treasure", ""]#, "Dungeon"]
 
 l = []#os.listdir(os.getcwd())#[]
 #l.pop()
 #l.pop()
-l.append("M_Cthulhu")
+l.append("M_Fantasy")
 
-for i in range (2, 4):
+for i in range (2, 5):
     l.append("M_Cthulhu_" +  str(i))
 
 for ii in l:
@@ -18,22 +18,24 @@ for ii in l:
         path = os.path.join(os.getcwd(), ii + "/" + types[j])
 
         try:
-            l = os.listdir(path)
+            lis = os.listdir(path)
         except:
-            l = ""
-
-        while (count < len(l)):
-            l = os.listdir(path)
-            i = l [count]
+            lis = ""
+        jj = 0
+        while (count < len(lis)):
+            i = lis [count]
             ext = i[i.rfind(".") + 1:]
             if (ext == "png"):
-                print (i, count)
-                if (not "card" in i):
+                print (i, jj)
+                if (not "card" in i) and (not "Cover" in i):
                     magick.doMagick(i, path)
                     countt = crop.doCrop(i, path, countt)
+                    count -= 1
                 else:
                     magick.doMagick(i, path, flag = 0)
-                    count += 1
+                jj += 1
+            count += 1
+            lis = os.listdir(path)
 ##import pygame
 ##pygame.mixer.init()
 ##pygame.mixer.music.load("file.mp3")

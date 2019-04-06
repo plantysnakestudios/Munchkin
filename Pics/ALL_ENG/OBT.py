@@ -7,12 +7,15 @@ def main():
     data.close()
     name = ""
 
-    l = (209,211)#range(len(dat))
+    l = range(330, len(dat) - 1)#range(len(dat))
     for i in l:
-        out = open("0" * (3 - len(str(i))) + str(i) + ".jpg", "wb")
-        file = r.get(dat[i], stream = True)
-        out.write(file.content)
-        out.close()
+        try:
+            file = r.get(dat[i], stream = True)
+            out = open("0" * (3 - len(str(i))) + str(i) + ".jpg", "wb")
+            out.write(file.content)
+            out.close()
+        except r.exceptions.ConnectionError:
+            print("No Connection, skipping ", i)
 
 if __name__ == "__main__":
     main()

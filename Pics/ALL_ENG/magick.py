@@ -8,4 +8,4 @@ def main():
     doMagick ("ALL_ENG/tmp.jpg", ".")
 
 if __name__ == "__main__":
-    main()#pass
+    pass
