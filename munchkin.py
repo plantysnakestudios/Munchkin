@@ -92,8 +92,6 @@ class Munchkin():
                 self.power += 1
                 return
 
-
-
     def set(self, where, what):
         j = 0
         self.optimise()
