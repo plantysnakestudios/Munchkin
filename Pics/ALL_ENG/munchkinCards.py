@@ -1,15 +1,15 @@
 import magick, crop
 import os
 
-types = [""]#"Doors", "Treasure", ""]#, "Dungeon"]
+types = ["Doors", "Treasure", ""]#, "Dungeon"]
 
 l = []#os.listdir(os.getcwd())#[]
 #l.pop()
 #l.pop()
 l.append("M_Fantasy")
 
-for i in range (2, 5):
-    l.append("M_Cthulhu_" +  str(i))
+#for i in range (2, 5):
+#    l.append("M_Cthulhu_" +  str(i))
 
 for ii in l:
     for j in range(len(types)):
