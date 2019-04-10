@@ -1,7 +1,10 @@
+ff = "YES"
 def f():
+    global ff
+    ff = "NO"
     import msvcrt, os, pdb
     strr = b''''''
-    inp = []
+    inp = [b'g', b'l', b'o', b'b', b'a', b'l', b' ', b'f', b'u', b'n', b'c', b'\n', b'd', b'e', b'f', b' ', b'f', b'u', b'n', b'c', b'(', b')', b':', b'\n']
     fl = 1
     print(r"Enter your func below. Remember, that tabs are 4 ' ' and exit is '`'")
     while fl:
@@ -29,12 +32,22 @@ def f():
             fl = 0
 
 
-    strr = b"""""".join(inp)
+    strr = b''''''.join(inp)
+    #strr += b"\nglobal func\nfunc = func1"
     strr = strr.decode()
     #return strr
     print(strr)
+    #pdb.set_trace()
     exec (strr, globals(), locals())
-    pdb.set_trace()
-    func()
+    #pdb.set_trace()
+    try:
+        func()
+    except:
+        print("no")
 
-f()
+def main():
+    f()
+
+if __name__ == "__main__":
+    main()
+

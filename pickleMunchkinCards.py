@@ -129,8 +129,11 @@ while exitt:
             types = [TYPEE]
             types.extend(TYPE(TYPEE))
         elif(ch == 5):
-            card = Card(name, descrpition, (TYPEE))
-            p.dump()
+            print(name, descrpition, func, sep = "\n")
+            #card = Card(name, descrpition, (TYPEE))
+            #p.dump()
+        elif(ch == 0):
+            pass
         else:
             print("Ошибка. Повторите ввод")
 
