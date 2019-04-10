@@ -1,4 +1,4 @@
-#import magick, crop
+import magick, crop
 import os
 
 types = [""]
