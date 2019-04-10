@@ -34,20 +34,21 @@ def f():
 
     strr = b''''''.join(inp)
     #strr += b"\nglobal func\nfunc = func1"
+    print (strr)
     strr = strr.decode()
-    #return strr
-    print(strr)
-    #pdb.set_trace()
-    exec (strr, globals(), locals())
-    #pdb.set_trace()
-    try:
-        func()
-    except:
-        print("no")
+    return strr
+##    print(strr)
+##    pdb.set_trace()
+##    exec (strr, globals(), locals())
+##    pdb.set_trace()
+##    try:
+##        func()
+##    except:
+##        print("no")
 
 def main():
     f()
 
 if __name__ == "__main__":
-    main()
+    pass#main()
 

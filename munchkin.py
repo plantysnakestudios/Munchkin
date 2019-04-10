@@ -67,7 +67,7 @@ class Munchkin():
         self.power = self.level
         for i in range(len(self.headgear)):
             if self.headgear[i]:
-                self.power += self.headgear[i].power(self)
+                self.power += self.headgear[i].func(self)
         for i in range(len(self.armor)):
             if self.armor[i]:
                 self.power += self.armor[i].power(self)
@@ -110,11 +110,11 @@ print(m1.power)
 from cards import Card
 import pickle
 with open("example.card", "rb") as cc:
-     card = pickle.load(cc)
-     cc.close()
+    card = pickle.load(cc)
+    cc.close()
 m1.set(m1.headgear, card)
-m1.set(m1.headgear, card)
-m1.maxamount["headgear"] += 1
-m1.set(m1.headgear, card)
+#m1.set(m1.headgear, card)
+#m1.maxamount["headgear"] += 1
+#m1.set(m1.headgear, card)
 m1.getPower()
 print(m1.power)

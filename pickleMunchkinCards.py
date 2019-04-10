@@ -6,23 +6,94 @@ from cards import Card
 def TYPE(t):
     typ = []
     ch = " "
-    door = "        OTHER = 0\n        МONSTER = 1\n        MONSTER_ENHANCER = 2\n        CURSE = 3\n        CLASS = 4\n        RACE = 5\n        HELPER = 6\n        STEED = 7\n        CHEAT = 8\n        PORTAL = 9"
-    item = "        ONETIME = 0\n        HELPER = 1\n        PERMANENT = 2\n        HEADGEAR = 3\n        ARMOR = 4\n        FOOTGEAR = 5\n        ONEHAND = 6\n        TWOHAND = 7\n        BIG = 8\n        RACEONLY = 9\n        ALLRACEONLY = 10\n        ALLCLASSONLY = 11\n        CLASSONLY = 12"
-    treasure = "        ITEM_ENHANCER = 0\n        GUAL = 1\n        OTHER = 2"
-    while (ch != ""):
+    door = []
+    door.append("OTHER")
+    door.append("МONSTER")
+    door.append("MONSTER_ENHANCER")
+    door.append("CURSE")
+    door.append("CLASS")
+    door.append("RACE")
+    door.append("HELPER")
+    door.append("STEED")
+    door.append("CHEAT")
+    door.append("PORTAL")
+    item = []
+    item.append("ONETIME")
+    item.append("HELPER")
+    item.append("PERMANENT")
+    item.append("HEADGEAR")
+    item.append("ARMOR")
+    item.append("FOOTGEAR")
+    item.append("ONEHAND")
+    item.append("TWOHAND")
+    item.append("BIG")
+    item.append("RACEONLY")
+    item.append("ALLRACEONLY")
+    item.append("ALLCLASSONLY")
+    item.append("CLASSONLY")
+    treasure = []
+    treasure.append("ITEM_ENHANCER")
+    treasure.append("GUAL")
+    treasure.append("OTHER")
+    while (ch != "0"):
         if t == "DOOR":
-            print("Какая дверь?\n" + door)
-        if t == "TREASURE":
-            print("Какое сокровище?\n" + treasure)
-            print("Или это ITEM?\n    ITEM = 3")
-
+            print("Какая дверь?")
+            for i in range(len(door)):
+                print("\t" + door[i], "=", i)
+            tt = input()
+            os.system("cls")
+            try:
+                tt = int(tt)
+                if ((tt > 9) or (tt < 0)):
+                    print("Ошибка.")
+                    continue
+            except:
+                print("Ошибка.")
+                continue
+            typ.append(door[tt])
+        elif t == "TREASURE":
+            print("Какое сокровище?")
+            for i in range(len(treasure)):
+                print("\t" + treasure[i], "=", i)
+            print("Или это ITEM?\n\tITEM = 3")
+            tt = input()
+            try:
+                tt = int(tt)
+                if ((tt > 3) or (tt < 0)):
+                    print("Ошибка.")
+                    continue
+            except:
+                print("Ошибка.")
+                continue
+            if tt == 3:
+                t = None
+                typ.append("ITEM")
+            else:
+                typ.append(treasure[tt])
         else:
-            print("Какая шмотка?\n" + item)
+            print("Какая шмотка?")
+            for i in range(len(item)):
+                print("\t" + item[i], "=", i)
+            tt = input()
+            try:
+                tt = int(tt)
+                if ((tt > 12) or (tt < 0)):
+                    print("Ошибка.")
+                    continue
+            except:
+                print("Ошибка.")
+                continue
+            typ.append(item[tt])
+        print("Добавить еще свойств?\n0 - EXIT")
+        ch = input()
+    return typ
 
 
 descrpition = None
 name = None
 func = None
+types = []
+cost = None
 
 listt = [[], []]#, []]
 
@@ -97,11 +168,18 @@ while exitt:
     #D - Door
     #T - Treasure""")
     num = input()
-    idd = namen + "_" + ((TYPEE[0]) if ((TYPEE == "DUNGEON") or (TYPEE == "TREASURE")) else ("DD")) + "_" + str(num)
+    idd = namen + "_"
+    if ((TYPEE == "DOOR") or (TYPEE == "TREASURE")):
+        idd += TYPEE[0]
+    else:
+        idd += "DD"
+    idd += "_" + str(num)
     ch = 1
+    os.system("cls")
+    error = ""
     while ch:
-        os.system("cls")
-        print("Ваша карта - " + str(num) + ".\nЧто хотите сделать?")
+        print(error + "Ваша карта - " + str(num) + ".\nЧто хотите сделать?")
+        error = ""
         if (not name):
             print ("1 - Добавить Имя.")
         else:
@@ -120,24 +198,31 @@ while exitt:
             print("Введите имя карты.")
             name = input()
         elif(ch == 2):
-            print("Введите описание карты карты.")
+            print("Введите описание карты.")
             descrpition = input()
         elif(ch == 3):
             import f
             func = f.f()
         elif(ch == 4):
-            types = [TYPEE]
+            types = [TYPEE, "HELPER"]
             types.extend(TYPE(TYPEE))
+            types = tuple(types)
         elif(ch == 5):
-            print(name, descrpition, func, sep = "\n")
-            #card = Card(name, descrpition, (TYPEE))
-            #p.dump()
+            if (name) and (descrpition) and (func) and (len(types) >= 2):
+                card = Card(name, descrpition, types, func, cost)
+                o = open (os.getcwd() + "/PicObj/Door/" + idd + ".card", "wb")
+                p.dump(card, o)
+                o.close()
+                ch = 0
+            else:
+                error = "Не все данные заполнены.\n"
+        elif(ch == 6):
+            pass
         elif(ch == 0):
             pass
         else:
-            print("Ошибка. Повторите ввод")
-
-
+            error = "Ошибка. Повторите ввод.\n"
+        os.system("cls")
 
     print("Создать еще карту?\t0 - выход.")
     exitt = input()
