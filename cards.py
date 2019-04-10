@@ -61,13 +61,35 @@ class Card():
         pc.pop()
         pc.extend(pc2)
         ex = ["","","",""]
-        if (not "and" in pc[1]):
+        if (not "and" in pc[1]) and (not "or" in pc[1]):
             pc[1] = pc[1].split ("==")
             ex = "for i in munchkin." + pc[1][0] + ":\n"
             ex += "    if i == " + pc[1][1] + ":\n"
             ex += "       self.val.append(" + pc[0] + ")\n"
             ex += "    else:\n"
             ex += "       self.val.append(" + pc[2] + ")"
+        else:
+            if ("or" in pc[1]):
+                con = "or"
+            elif ("and" in pc[1]):
+                con = "and"
+            pc[1] = pc[1].split(con)
+            for i in range(len(pc[1])):
+                pc[1][i] = pc[1][i].split ("==")
+
+            ex = "for i in munchkin." + pc[1][0][0] + ":\n"
+            ex += "    if i == " + pc[1][0][1] + ":\n"
+            ex += "       self.val.append(" + pc[0] + ")\n"
+            ex += "    else:\n"
+            ex += "       self.val.append(" + pc[2] + ")\n"
+
+            ex += "for i in munchkin." + pc[1][1][0] + ":\n"
+            ex += "    if i == " + pc[1][1][1] + ":\n"
+            ex += "       self.val.append(" + pc[0] + ")\n"
+            ex += "    else:\n"
+            ex += "       self.val.append(" + pc[2] + ")"
+
+
         #ex = "\n".join(ex)
         exec(ex, globals(), locals())
         self.val = max(self.val)
@@ -75,7 +97,7 @@ class Card():
 
 
 def main():
-    cardd = Card("one stuff nobody reads", "some stuff", ("TREASURE", "ITEM", "HEADGEAR", "BIG"), "+5 if clas == 'Warrior' else +3", 200)
+    cardd = Card("one stuff nobody reads", "some stuff", ("TREASURE", "ITEM", "HEADGEAR", "BIG"), "+5 if clas == 'War' or clas == 'Wiz' else +3", 200)
     cardd1 = Card("one stuff nobody reads", "some stuff", ("DOOR", "HELPER"))
     cardd2 = Card("one stuff nobody reads", "some stuff", ("TREASURE", "ITEM", "HELPER"))
 
