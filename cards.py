@@ -36,7 +36,7 @@ class Card():
         ALLCLASSONLY = 11
         CLASSONLY = 12
 
-    def __init__ (self, name, descript, tyyp, power = "", cost = None):
+    def __init__ (self, name, descript, tyyp, power = "", cost = None, image = (None, None)):
         self.name = name
         self.description = descript
         if (tyyp[1] == "ITEM"):
@@ -50,13 +50,10 @@ class Card():
 
 
         exec(ex)
-        #self.pcond = power
-        #exec (power, globals(), locals())
-
-        #global func
         self.function = power
         self.cost = cost
-        #self.power = power
+        self.front = image[0]
+        self.back = image[1]
 
     def func(self, munchkin):
         exec(self.function, globals(), locals())

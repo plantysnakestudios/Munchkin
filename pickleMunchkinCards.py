@@ -88,13 +88,6 @@ def TYPE(t):
         ch = input()
     return typ
 
-
-descrpition = None
-name = None
-func = None
-types = []
-cost = None
-
 listt = [[], []]#, []]
 
 namen = "MFantasy"
@@ -141,23 +134,33 @@ if n["treasures"]:
 ##                    listt[2][j] = True
 
 exitt = 1
+new = 1
 print("Создатель карт 0.0.0.0.0.0.0.1\n\nВНИМАНИЕ!ВСЕ ДАННЫЕ ВВОДИТЬ НА АНГЛИЙСКОМ И НОМЕРА КАРТ КАК 001, а не 1")
 while exitt:
     while (True):
         print ("Текущий набор - ", namen)
-        print("Door(1)/Treasure(2)?")
-        typee = input()
-        if (typee == "1"):
-            TYPEE = "DOOR"
-            break
-        elif (typee == "2"):
-            TYPEE = "TREASURE"
-            break
-        elif (typee == "0"):
-            import sys
-            sys.exit()
-        else:
-            print("Ошибка. Повторите попытку.")
+        descrpition = None
+        name = None
+        func = None
+        types = []
+        cost = None
+
+        fpath = None
+        if new:
+            bpath = None
+            print("Door(1)/Treasure(2)?")
+            typee = input()
+            if (typee == "1"):
+                TYPEE = "DOOR"
+                break
+            elif (typee == "2"):
+                TYPEE = "TREASURE"
+                break
+            elif (typee == "0"):
+                import sys
+                sys.exit()
+            else:
+                print("Ошибка. Повторите попытку.")
     typee = int(typee) - 1
     for i in range(n[TYPEE.lower() + "s"]):
         print ("0" * (3 - len(str(i))) + str(i) + ".card", "v" if listt[typee][i] else "x")
@@ -178,7 +181,7 @@ while exitt:
     os.system("cls")
     error = ""
     while ch:
-        print(error + "Ваша карта - " + str(num) + ".\nЧто хотите сделать?")
+        print(error + "Ваша карта - " + TYPEE + str(num) + ".\nЧто хотите сделать?")
         error = ""
         if (not name):
             print ("1 - Добавить Имя.")
@@ -208,8 +211,8 @@ while exitt:
             types.extend(TYPE(TYPEE))
             types = tuple(types)
         elif(ch == 5):
-            if (name) and (descrpition) and (func) and (len(types) >= 2):
-                card = Card(name, descrpition, types, func, cost)
+            if (name) and (descrpition) and (func) and (len(types) >= 2) and (fpath) and (bpath):
+                card = Card(name, descrpition, types, func, cost, (fpath, bpath))
                 o = open (os.getcwd() + "/PicObj/Door/" + idd + ".card", "wb")
                 p.dump(card, o)
                 o.close()
@@ -217,7 +220,21 @@ while exitt:
             else:
                 error = "Не все данные заполнены.\n"
         elif(ch == 6):
-            pass
+            print("Вставьте отностительный путь до лицевой стороны карты " + str(num))
+            fpath = input()
+            while (not os.path.exists(os.getcwd() + "/" + fpath)):
+                print("Ошибка. Попробуйте еще раз.")
+                print("Вставьте отностительный путь до лицевой стороны карты " + str(num))
+                fpath = input()
+            fpath += r"../../" + fpath
+            if new:
+                print("Вставьте отностительный путь до задней стороны карты " + str(num))
+                bpath = input()
+                while (not os.path.exists(os.getcwd() + "/" + bpath)):
+                    print("Ошибка. Попробуйте еще раз.")
+                    print("Вставьте отностительный путь до задней стороны карты " + str(num))
+                    fpath = input()
+                bpath += r"../../" + bpath
         elif(ch == 0):
             pass
         else:
@@ -228,6 +245,14 @@ while exitt:
     exitt = input()
     if exitt == "0":
         exitt = 0
-
-
-
+    else:
+        print("Продолжишь заполнять " + TYPEE + "?\n1 - Y\n2 - N")
+        tmp = input()
+        while ((tmp != "1") or (tmp != "2")):
+            print("ERROR.\nПродолжишь заполнять " + TYPEE + "?\n1 - Y\n2 - N")
+            tmp = input()
+        tmp = int(tmp)
+        if (tmp - 1):
+            new = True
+        else:
+            new = False
