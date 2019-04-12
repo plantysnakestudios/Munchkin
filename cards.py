@@ -2,7 +2,6 @@ from enum import Enum as e
 class Card():
 
     class typeOfDOOR (e):
-
         OTHER = 0
         МONSTER = 1
         MONSTER_ENHANCER = 2
@@ -16,7 +15,6 @@ class Card():
 
 
     class typeOfTREASURE (e):
-
         ITEM_ENHANCER = 0
         GUAL = 1
         OTHER = 2
@@ -36,7 +34,14 @@ class Card():
         ALLCLASSONLY = 11
         CLASSONLY = 12
 
-    def __init__ (self, name, descript, tyyp, power = "", cost = None, image = (None, None)):
+    class playTime(e):
+        ANYTIME_BUT_BATTLE = 0
+        YOUR_TURN = 1
+        AFTER_BATTLE = 2
+        BATTLE = 3
+        ANYTIME = 4
+
+    def __init__ (self, name, descript, tyyp, lvl = None, win = (None, None), power = ("", ), cost = None, image = (None, None), play = 0):
         self.name = name
         self.description = descript
         if (tyyp[1] == "ITEM"):
@@ -50,19 +55,32 @@ class Card():
 
 
         exec(ex)
+        self.level = lvl
+        self.win = win
         self.function = power
         self.cost = cost
         self.front = image[0]
         self.back = image[1]
+        self.play = self.playTime(play)
 
     def func(self, munchkin):
-        exec(self.function, globals(), locals())
-        func()#munchkin)
+        exec(self.function[0], globals(), locals())
+        func(self, munchkin)
+        return self.returnn
+
+    def func0(self, munchkin):
+        exec(self.function[1], globals(), locals())
+        func(self, munchkin)
+        return self.returnn
+
+    def func1(self, munchkin):
+        exec(self.function[2], globals(), locals())
+        func(self, munchkin)
         return self.returnn
 
 
 def main():
-    cardd = Card("one stuff nobody reads", "some stuff", ("TREASURE", "ITEM", "HEADGEAR", "BIG"), 'global func\ndef func():\n    print("kek")\nself.returnn = 999', 200)#"+5 if clas == 'War' or clas == 'Wiz' else +3", 200)
+    cardd = Card("one stuff nobody reads", "some stuff", ("TREASURE", "ITEM", "HEADGEAR", "BIG"), power = ('global func\ndef func(self, munchkin):\n    print("kek")\nself.returnn = 999', ), cost = 200, image = (r"Pics\ALL_ENG\M_Fantasy\Treasure\card000.png",""))#"+5 if clas == 'War' or clas == 'Wiz' else +3", 200)
     cardd1 = Card("one stuff nobody reads", "some stuff", ("DOOR", "HELPER"))
     cardd2 = Card("one stuff nobody reads", "some stuff", ("TREASURE", "ITEM", "HELPER"))
 

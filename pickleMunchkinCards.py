@@ -3,6 +3,19 @@ import os
 
 from cards import Card
 
+def tim():
+    time = []
+    time.append("ANYTIME_BUT_BATTLE")
+    time.append("YOUR_TURN")
+    time.append("AFTER_BATTLE")
+    time.append("BATTLE")
+    time.append("ANYTIME")
+    print("Когда играть?")
+    for i in range(len(time)):
+        print(i, "-", time[i])
+    tmp = input()
+    return tmp
+
 def TYPE(t):
     typ = []
     ch = " "
@@ -102,36 +115,36 @@ for treasure in range(n["treasures"]):
 
 ##for dungeon in range(n["dungeons"]):
 ##    listt[2].append(False)
+def check():
+    import os
 
-import os
+    if n["doors"]:
+        try:
+            os.makedirs(os.getcwd() + r"/PicObj/DOOR/")
+        except:
+            for i in os.listdir(os.getcwd() + r"/PicObj/Door/"):
+                for j in range(n["doors"]):
+                    if os.path.exists(os.getcwd() + r"/PicObj/Door/" + namen + "_D_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
+                        listt[0][j] = True
 
-if n["doors"]:
-    try:
-        os.makedirs(os.getcwd() + r"/PicObj/Door/")
-    except:
-        for i in os.listdir(os.getcwd() + r"/PicObj/Door/"):
-            for j in range(n["doors"]):
-                if os.path.exists(os.getcwd() + r"/PicObj/Door/" + namen + "_D_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
-                    listt[0][j] = True
-
-if n["treasures"]:
-    try:
-        os.makedirs(os.getcwd() + r"/PicObj/Treasure/")
-    except:
-        for i in os.listdir(os.getcwd() + r"/PicObj/Treasure/"):
-            for j in range(n["treasures"]):
-                if os.path.exists(os.getcwd() + r"/PicObj/Treasure/" + namen + "_T_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
-                    listt[1][j] = True
+    if n["treasures"]:
+        try:
+            os.makedirs(os.getcwd() + r"/PicObj/TREASURE/")
+        except:
+            for i in os.listdir(os.getcwd() + r"/PicObj/TREASURE/"):
+                for j in range(n["treasures"]):
+                    if os.path.exists(os.getcwd() + r"/PicObj/TREASURE/" + namen + "_T_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
+                        listt[1][j] = True
 
 
-##if n["dungeons"]:
-##    try:
-##        os.makedirs(os.getcwd() + r"/PicObj/Dungeon/")
-##    except:
-##        for i in os.listdir(os.getcwd() + r"/PicObj/Dungeon/"):
-##            for j in range(n["dungeon"]):
-##                if os.path.exists(os.getcwd() + r"/PicObj/Dungeon/" + namen + "_DD_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
-##                    listt[2][j] = True
+    ##if n["dungeons"]:
+    ##    try:
+    ##        os.makedirs(os.getcwd() + r"/PicObj/Dungeon/")
+    ##    except:
+    ##        for i in os.listdir(os.getcwd() + r"/PicObj/Dungeon/"):
+    ##            for j in range(n["dungeon"]):
+    ##                if os.path.exists(os.getcwd() + r"/PicObj/Dungeon/" + namen + "_DD_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
+    ##                    listt[2][j] = True
 
 exitt = 1
 new = 1
@@ -144,8 +157,11 @@ while exitt:
         func = None
         types = []
         cost = None
-
+        time = ""
         fpath = None
+        time = 0
+        level = None
+        win = (None, None)
         if new:
             bpath = None
             print("Door(1)/Treasure(2)?")
@@ -161,7 +177,12 @@ while exitt:
                 sys.exit()
             else:
                 print("Ошибка. Повторите попытку.")
+        else:
+            break
+    else:
+        typee = str(typee + 1)
     typee = int(typee) - 1
+    check()
     for i in range(n[TYPEE.lower() + "s"]):
         print ("0" * (3 - len(str(i))) + str(i) + ".card", "v" if listt[typee][i] else "x")
     print("Введите номер карты, которую создаете:\n")
@@ -181,17 +202,33 @@ while exitt:
     os.system("cls")
     error = ""
     while ch:
-        print(error + "Ваша карта - " + TYPEE + str(num) + ".\nЧто хотите сделать?")
+        print(error + "Ваша карта - " + TYPEE + " " + str(num) + ".\nЧто хотите сделать?")
         error = ""
         if (not name):
             print ("1 - Добавить Имя.")
         else:
             pass
-        if not descrpition:
+        if (not descrpition):
             print("2 - Добавить Описание.")
         else:
             pass
-        print("3 - Уточнить функцию карты.\n4 - Уточнить тип карты.\n5 - SAVE\n6 - Pic\n0 - EXIT")
+        if (not func):
+            print(f"3 - Уточнить {'функцию' if TYPEE == 'TREASURE' else 'BADSTUFF или свойство'} карты.")
+        else:
+            pass
+        if (not types):
+            print("4 - Уточнить тип карты.")
+        else:
+            pass
+        print("5 - SAVE")
+        if (not fpath):
+            print("6 - Pic")
+        else:
+            pass
+        print("7 - Уточнить время использования(default: ANYTIME_BUT_BATTLE).")
+        if types[1] == "MONSTER":
+            print("8 - Уточнить уровень монстра.\n9 - Уточнить награду за победу над монстром.")
+        print("0 - EXIT")
         ch = input()
         try:
             ch = int(ch)
@@ -207,18 +244,30 @@ while exitt:
             import f
             func = f.f()
         elif(ch == 4):
-            types = [TYPEE, "HELPER"]
+            types = [TYPEE]
             types.extend(TYPE(TYPEE))
             types = tuple(types)
         elif(ch == 5):
-            if (name) and (descrpition) and (func) and (len(types) >= 2) and (fpath) and (bpath):
-                card = Card(name, descrpition, types, func, cost, (fpath, bpath))
-                o = open (os.getcwd() + "/PicObj/Door/" + idd + ".card", "wb")
-                p.dump(card, o)
-                o.close()
-                ch = 0
+            if (TYPEE == "TREASURE"):
+                if (name) and (descrpition) and (func) and (len(types) >= 2) and (fpath) and (bpath):
+                    card = Card(name, descrpition, types, power = func, cost = cost, image = (fpath, bpath), play = time)
+                    o = open (os.getcwd() + "/PicObj/" + TYPEE + "/" + idd + ".card", "wb")
+                    p.dump(card, o)
+                    o.close()
+                    ch = 0
+                else:
+                    error = "Не все данные заполнены.\n"
+            elif (TYPEE == "DOOR"):
+                if (name) and (descrpition) and (func) and (len(types) >= 2) and (fpath) and (bpath):
+                    card = Card(name, descrpition, types, lvl = level, win = win, power = func, image = (fpath, bpath), play = time)
+                    o = open (os.getcwd() + "/PicObj/" + TYPEE + "/" + idd + ".card", "wb")
+                    p.dump(card, o)
+                    o.close()
+                    ch = 0
+                else:
+                    error = "Не все данные заполнены.\n"
             else:
-                error = "Не все данные заполнены.\n"
+                pass
         elif(ch == 6):
             print("Вставьте отностительный путь до лицевой стороны карты " + str(num))
             fpath = input()
@@ -235,6 +284,17 @@ while exitt:
                     print("Вставьте отностительный путь до задней стороны карты " + str(num))
                     fpath = input()
                 bpath += r"../../" + bpath
+        elif(ch == 7):
+            time = tim()
+        elif(ch == 8):
+            print("Введите уровень монстра.")
+            level = input()
+        elif(ch == 9):
+            print("Введите кол-во уровней за победу над монстром.")
+            win[0] = input()
+            print("Введите кол-во сокровищ за победу над монстром.")
+            win[1] = input()
+
         elif(ch == 0):
             pass
         else:
@@ -246,9 +306,10 @@ while exitt:
     if exitt == "0":
         exitt = 0
     else:
+        exitt = 1
         print("Продолжишь заполнять " + TYPEE + "?\n1 - Y\n2 - N")
         tmp = input()
-        while ((tmp != "1") or (tmp != "2")):
+        while ((tmp != "1") and (tmp != "2")):
             print("ERROR.\nПродолжишь заполнять " + TYPEE + "?\n1 - Y\n2 - N")
             tmp = input()
         tmp = int(tmp)

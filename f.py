@@ -4,7 +4,7 @@ def f():
     ff = "NO"
     import msvcrt, os, pdb
     strr = b''''''
-    inp = [b'g', b'l', b'o', b'b', b'a', b'l', b' ', b'f', b'u', b'n', b'c', b'\n', b'd', b'e', b'f', b' ', b'f', b'u', b'n', b'c', b'(', b')', b':', b'\n']
+    inp = [b'g', b'l', b'o', b'b', b'a', b'l', b' ', b'f', b'u', b'n', b'c', b'\n', b'd', b'e', b'f', b' ', b'f', b'u', b'n', b'c', b'(', b's', b'e', b'l', b'f', b',', b' ', b'm', b'u', b'n', b'c', b'h', b'k', b'i', b'n', b')', b':', b'\n']
     fl = 1
     print(r"Enter your func below. Remember, that tabs are 4 ' ' and exit is '`'")
     while fl:

@@ -18,7 +18,7 @@ class Munchkin():
         self.armor = [None, ]
         self.footgear = [None, ]
         self.arm = [None, ]
-        self.race = [None, ]
+        self.race = ["Human", ]
         self.clas = [None, ]
         self.curse = []
         self.helper = [None, ]
