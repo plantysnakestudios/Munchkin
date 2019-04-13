@@ -116,15 +116,13 @@ for treasure in range(n["treasures"]):
 ##for dungeon in range(n["dungeons"]):
 ##    listt[2].append(False)
 def check():
-    import os
-
     if n["doors"]:
         try:
             os.makedirs(os.getcwd() + r"/PicObj/DOOR/")
         except:
-            for i in os.listdir(os.getcwd() + r"/PicObj/Door/"):
+            for i in os.listdir(os.getcwd() + r"/PicObj/DOOR/"):
                 for j in range(n["doors"]):
-                    if os.path.exists(os.getcwd() + r"/PicObj/Door/" + namen + "_D_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
+                    if os.path.exists(os.getcwd() + r"/PicObj/DOOR/" + namen + "_D_" + "0" * (3 - len(str(j))) + str(j) + ".card"):
                         listt[0][j] = True
 
     if n["treasures"]:
@@ -162,6 +160,8 @@ while exitt:
         time = 0
         level = None
         win = (None, None)
+        func = [None, None, None]
+        numm = 0
         if new:
             bpath = None
             print("Door(1)/Treasure(2)?")
@@ -178,9 +178,8 @@ while exitt:
             else:
                 print("Ошибка. Повторите попытку.")
         else:
+            typee = str(typee + 1)
             break
-    else:
-        typee = str(typee + 1)
     typee = int(typee) - 1
     check()
     for i in range(n[TYPEE.lower() + "s"]):
@@ -212,7 +211,7 @@ while exitt:
             print("2 - Добавить Описание.")
         else:
             pass
-        if (not func):
+        if (not func[numm]):
             print(f"3 - Уточнить {'функцию' if TYPEE == 'TREASURE' else 'BADSTUFF или свойство'} карты.")
         else:
             pass
@@ -226,9 +225,12 @@ while exitt:
         else:
             pass
         print("7 - Уточнить время использования(default: ANYTIME_BUT_BATTLE).")
-        if types[1] == "MONSTER":
-            print("8 - Уточнить уровень монстра.\n9 - Уточнить награду за победу над монстром.")
-        print("0 - EXIT")
+        try:
+            if types[1] == "МONSTER":
+                print("8 - Уточнить уровень монстра.\n9 - Уточнить награду за победу над монстром.")
+        except IndexError:
+            pass
+        print("10 - Уточнить дополнительные функции.\n0 - EXIT")
         ch = input()
         try:
             ch = int(ch)
@@ -242,7 +244,7 @@ while exitt:
             descrpition = input()
         elif(ch == 3):
             import f
-            func = f.f()
+            func[numm] = f.f()
         elif(ch == 4):
             types = [TYPEE]
             types.extend(TYPE(TYPEE))
@@ -294,7 +296,16 @@ while exitt:
             win[0] = input()
             print("Введите кол-во сокровищ за победу над монстром.")
             win[1] = input()
-
+        elif(ch == 10):
+            print (func[numm])
+            print("OK?\n1 - Y\n2 - N")
+            tmpp = int(input ())
+            if tmpp == 1:
+                numm += 1
+                if numm >= 3:
+                    numm = 0
+            else:
+                pass
         elif(ch == 0):
             pass
         else:
