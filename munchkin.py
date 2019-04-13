@@ -19,6 +19,7 @@ class Munchkin():
         self.footgear = [None, ]
         self.arm = [None, ]
         self.race = ["Human", ]
+        self.abil = [None]
         self.clas = [None, ]
         self.curse = []
         self.helper = [None, ]
@@ -87,10 +88,6 @@ class Munchkin():
             self.power += self.stuff[i].power(self)
         for i in range(len(self.cheat)):
             self.power += self.cheat[i].power(self)
-        for i in self.clas:
-            if (i) and ("Warrior" in i):
-                self.power += 1
-                return
 
     def set(self, where, what):
         j = 0
@@ -103,6 +100,13 @@ class Munchkin():
         print("not able to can", what.type)
         print(where)
 
+    def abl(self,):
+        for i in self.abil:
+            try:
+                exec(i)
+                func()
+            except:
+                pass
 
 
 m1 = Munchkin()
@@ -113,6 +117,7 @@ with open("example.card", "rb") as cc:
     card = pickle.load(cc)
     cc.close()
 m1.set(m1.headgear, card)
+m1.abl()
 #m1.set(m1.headgear, card)
 #m1.maxamount["headgear"] += 1
 #m1.set(m1.headgear, card)
