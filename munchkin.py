@@ -68,26 +68,34 @@ class Munchkin():
         self.power = self.level
         for i in range(len(self.headgear)):
             if self.headgear[i]:
-                self.power += self.headgear[i].func(self)
+                self.power += self.headgear[i].on(self)
+                self.headgear[i].off(self)
         for i in range(len(self.armor)):
             if self.armor[i]:
-                self.power += self.armor[i].power(self)
+                self.power += self.armor[i].on(self)
+                self.headgear[i].off(self)
         for i in range(len(self.footgear)):
             if self.footgear[i]:
-                self.power += self.footgear[i].power(self)
+                self.power += self.footgear[i].on(self)
+                self.headgear[i].off(self)
         for i in range(len(self.arm)):
             if self.arm[i]:
-                self.power += self.arm[i].power(self)
+                self.power += self.arm[i].on(self)
+                self.headgear[i].off(self)
         for i in range(len(self.helper)):
             if self.helper[i]:
-                self.power += self.helper[i].power(self)
+                self.power += self.helper[i].on(self)
+                self.headgear[i].off(self)
         for i in range(len(self.steed)):
             if self.steed[i]:
-                self.power += self.steed[i].power(self)
+                self.power += self.steed[i].on(self)
+                self.headgear[i].off(self)
         for i in range(len(self.stuff)):
-            self.power += self.stuff[i].power(self)
+            self.power += self.stuff[i].on(self)
+            self.headgear[i].off(self)
         for i in range(len(self.cheat)):
-            self.power += self.cheat[i].power(self)
+            self.power += self.cheat[i].on(self)
+            self.headgear[i].off(self)
 
     def set(self, where, what):
         j = 0
@@ -95,10 +103,14 @@ class Munchkin():
         for i in where:
             if i == None:
                 where[j] = what
+                what.on(self)
                 return
             j += 1
         print("not able to can", what.type)
         print(where)
+
+    def offset(self, where, what):
+        pass
 
     def abl(self,):
         for i in self.abil:

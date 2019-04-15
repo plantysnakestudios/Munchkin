@@ -62,9 +62,21 @@ class Card():
         self.front = image[0]
         self.back = image[1]
         self.play = self.playTime(play)
+        self.returnn = 0
 
-    def func(self, munchkin):
+    def on(self, munchkin):
         exec(self.function[0], globals(), locals())
+        func(self, munchkin)
+        return self.returnn
+
+    def off(self, munchkin):
+        ff = self.function[0]
+        n = ff.rfind("+")
+        if n != -1:
+            ff = ff.replace("+=", "-=")
+        else:
+            ff = ff.replace("= ", "= -")
+        exec(ff, globals(), locals())
         func(self, munchkin)
         return self.returnn
 
