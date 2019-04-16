@@ -106,11 +106,18 @@ class Munchkin():
                 what.on(self)
                 return
             j += 1
-        print("not able to can", what.type)
-        print(where)
+        #print("not able to can", what.type)
+        #print(where)
 
     def offset(self, where, what):
-        pass
+        j = 0
+        for i in where:
+            if i == what:
+                where.pop(j)
+                what.off(self)
+                self.optimise()
+                return
+            j += 1
 
     def abl(self,):
         for i in self.abil:
@@ -130,8 +137,11 @@ with open("example.card", "rb") as cc:
     cc.close()
 m1.set(m1.headgear, card)
 m1.abl()
-#m1.set(m1.headgear, card)
-#m1.maxamount["headgear"] += 1
-#m1.set(m1.headgear, card)
+##m1.set(m1.headgear, card)
+##m1.maxamount["headgear"] += 1
+##m1.set(m1.headgear, card)
+##m1.getPower()
+##print(m1.power)
+m1.offset(m1.headgear, card)
 m1.getPower()
 print(m1.power)
